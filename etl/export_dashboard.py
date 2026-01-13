@@ -29,6 +29,36 @@ def export_dashboard_json():
     ''')
     recent = [dict(row) for row in cursor.fetchall()]
     
+    cursor.execute('''
+        SELECT category, COUNT(*) as count, SUM(amount) as total
+        FROM transactions 
+        WHERE category IS NOT NULL
+        GROUP BY category
+    ''')
+    category_data = [dict(row) for row in cursor.fetchall()]
+    
+    cursor.execute('''
+        SELECT DATE(date) as day, SUM(amount) as total
+        FROM transactions 
+        WHERE date IS NOT NULL AND amount IS NOT NULL
+        GROUP BY DATE(date)
+        ORDER BY day DESC
+        LIMIT 30
+    ''')
+    daily_data = [dict(row) for row in cursor.fetchall()]
+    
+    charts = {
+        "byCategory": {
+            "labels": [item["category"] for item in category_data],
+            "counts": [item["count"] for item in category_data],
+            "amounts": [item["total"] or 0 for item in category_data]
+        },
+        "dailyAmounts": {
+            "dates": [item["day"] for item in daily_data],
+            "amounts": [item["total"] or 0 for item in daily_data]
+        }
+    }
+    
     dashboard_data = {
         "summary": {
             "totalTransactions": total,
@@ -36,7 +66,7 @@ def export_dashboard_json():
             "transactionTypes": types,
             "dateRange": date_range_str
         },
-        "charts": {},
+        "charts": charts,
         "recentTransactions": recent
     }
     

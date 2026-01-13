@@ -37,9 +37,90 @@ function renderSummary(summary) {
     `;
 }
 
+let categoryChart = null;
+let dailyChart = null;
+
 function renderCharts(chartData) {
     const container = document.getElementById('chart-container');
-    container.innerHTML = '<p>Chart visualization will be implemented here.</p>';
+    
+    if (!chartData || !chartData.byCategory || !chartData.dailyAmounts) {
+        container.innerHTML = '<p>No chart data available.</p>';
+        return;
+    }
+    
+    container.innerHTML = `
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
+            <div>
+                <h3>Transactions by Category</h3>
+                <canvas id="categoryChart" style="max-height: 300px;"></canvas>
+            </div>
+            <div>
+                <h3>Daily Transaction Amounts</h3>
+                <canvas id="dailyChart" style="max-height: 300px;"></canvas>
+            </div>
+        </div>
+    `;
+    
+    const categoryCtx = document.getElementById('categoryChart').getContext('2d');
+    if (categoryChart) {
+        categoryChart.destroy();
+    }
+    categoryChart = new Chart(categoryCtx, {
+        type: 'pie',
+        data: {
+            labels: chartData.byCategory.labels,
+            datasets: [{
+                label: 'Transaction Count',
+                data: chartData.byCategory.counts,
+                backgroundColor: [
+                    '#3498db',
+                    '#e74c3c',
+                    '#2ecc71',
+                    '#f39c12',
+                    '#9b59b6',
+                    '#1abc9c'
+                ]
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: true
+        }
+    });
+    
+    const dailyCtx = document.getElementById('dailyChart').getContext('2d');
+    if (dailyChart) {
+        dailyChart.destroy();
+    }
+    dailyChart = new Chart(dailyCtx, {
+        type: 'bar',
+        data: {
+            labels: chartData.dailyAmounts.dates,
+            datasets: [{
+                label: 'Amount (RWF)',
+                data: chartData.dailyAmounts.amounts,
+                backgroundColor: '#3498db'
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        callback: function(value) {
+                            return new Intl.NumberFormat('en-RW', {
+                                style: 'currency',
+                                currency: 'RWF',
+                                minimumFractionDigits: 0
+                            }).format(value);
+                        }
+                    }
+                }
+            }
+        }
+    });
 }
 
 function renderTransactions(transactions) {
