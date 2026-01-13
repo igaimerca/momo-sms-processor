@@ -1,5 +1,5 @@
-import os
 from pathlib import Path
+import os
 
 BASE_DIR = Path(__file__).parent.parent
 
@@ -9,7 +9,7 @@ PROCESSED_DATA_DIR = DATA_DIR / "processed"
 LOG_DIR = DATA_DIR / "logs"
 DEAD_LETTER_DIR = LOG_DIR / "dead_letter"
 
-DB_PATH = DATA_DIR / "db.sqlite3"
+DB_PATH = Path(os.getenv("DB_PATH", str(DATA_DIR / "db.sqlite3")))
 DASHBOARD_JSON = PROCESSED_DATA_DIR / "dashboard.json"
 
 LOG_FILE = LOG_DIR / "etl.log"
