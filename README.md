@@ -21,7 +21,7 @@ This fullstack application processes Mobile Money (MoMo) SMS data in XML format.
 
 ## System Architecture
 
-[View Architecture Diagram on Miro](https://miro.com/app/board/uXjVGdxPtQo=/?share_link_id=20404442117/)
+[View Architecture Diagram on Miro](https://miro.com/app/board/uXjVGRfqY5s=/?share_link_id=998925664556)
 
 [Architecture Diagram (in repo)](docs/architecture.md)
 
