@@ -23,6 +23,8 @@ This fullstack application processes Mobile Money (MoMo) SMS data in XML format.
 
 [View Architecture Diagram on Miro](https://miro.com/app/board/uXjVGdxPtQo=/?share_link_id=20404442117/)
 
+[Architecture Diagram (in repo)](docs/architecture.md)
+
 The system follows a modular ETL (Extract, Transform, Load) architecture with the following components:
 
 ### Architecture Components:
@@ -91,8 +93,8 @@ The system follows a modular ETL (Extract, Transform, Load) architecture with th
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/igaimerca/momo-insights.git
-cd momo-insights
+git clone https://github.com/igaimerca/momo-sms-processor.git
+cd momo-sms-processor
 ```
 
 2. Create a virtual environment:
@@ -134,8 +136,7 @@ Then open `http://localhost:8000` in your browser.
 
 ## Scrum Board
 
-[View our Scrum Board](https://github.com/igaimerca/momo-insights/projects)
+[View our Scrum Board](https://trello.com/b/TQnNW4nd/momo-sms-processor)
 
 ## Contributing
-
-This is a solo project. Please follow the project structure and coding standards.
+Please follow the project structure and coding standards.
