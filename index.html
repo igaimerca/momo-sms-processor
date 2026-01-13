@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MoMo SMS Data Dashboard</title>
+    <link rel="stylesheet" href="web/styles.css">
+</head>
+<body>
+    <header>
+        <h1>MoMo SMS Transaction Dashboard</h1>
+    </header>
+    <main>
+        <section id="summary">
+            <h2>Transaction Summary</h2>
+            <div id="summary-stats"></div>
+        </section>
+        <section id="charts">
+            <h2>Data Visualization</h2>
+            <div id="chart-container"></div>
+        </section>
+        <section id="transactions">
+            <h2>Recent Transactions</h2>
+            <table id="transactions-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Name</th>
+                        <th>Amount</th>
+                        <th>Phone</th>
+                        <th>Category</th>
+                    </tr>
+                </thead>
+                <tbody id="transactions-body">
+                </tbody>
+            </table>
+        </section>
+    </main>
+    <script src="web/chart_handler.js"></script>
+</body>
+</html>
+
